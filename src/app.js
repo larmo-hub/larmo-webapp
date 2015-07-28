@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module("LarmoApp", ["ngRoute", "ngSanitize", "headroom"]);
+var app = angular.module("LarmoApp", ["ngRoute", "ngSanitize", "headroom", "infinite-scroll"]);
 
 (function() {
     app.config(["$routeProvider", function($routeProvider) {
