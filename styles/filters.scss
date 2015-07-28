@@ -1,0 +1,68 @@
+#filters {
+  position: fixed;
+  width: 100%;
+  top: $header-height;
+  background: $darker-grey;
+  height: $filter-container-height;
+  z-index: 10;
+
+  @include on-small-screen() {
+    height: $filter-container-height-on-small-screen;
+  }
+
+  .flex-container {
+    display: flex;
+
+    flex-flow: row wrap;
+    justify-content: space-around;
+
+    label.filter {
+      width: $filter-element-width;
+      height: 34pt;
+
+      background-color: $darker-grey;
+      color: $white;
+      border: 0;
+      margin: 0;
+
+      font-size: $big-font-size;
+      text-align: center;
+      line-height: $filter-container-height;
+
+      @include on-small-screen() {
+        width: $filter-element-width-on-small-screen;
+      }
+
+      i {
+        @include transition(all 400ms ease);
+      }
+
+      input {
+        display: none;
+
+        &:checked + i {
+          color: $apple;
+          text-shadow: 0 0 $base-text-shadow-diffusion $apple;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:checked {
+        color: $apple;
+        text-shadow: 0 0 $base-text-shadow-diffusion $apple;
+      }
+    }
+  }
+
+  @include headroom-apply-transition();
+  @include headroom-on-scroll-down(translateY(-($header-height+($filter-container-height * $row-count-base))));
+  @include headroom-on-scroll-up(translateY(-$header-height));
+  @include headroom-on-top(translateY(0));
+
+  @include on-small-screen() {
+    @include headroom-on-scroll-down(translateY(-($header-height+($filter-container-height * $row-count-on-small-screen))));
+  }
+}

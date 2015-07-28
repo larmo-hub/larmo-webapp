@@ -1,0 +1,43 @@
+@mixin on-small-screen() {
+  @media screen and (max-width: $break-small) {
+    @content;
+  }
+}
+
+@mixin transition($value) {
+  -webkit-transition: $value;
+  -moz-transition: $value;
+  -o-transition: $value;
+  transition: $value;
+}
+
+@mixin transform($value) {
+  -webkit-transform: $value;
+  -moz-transform: $value;
+  -o-transform: $value;
+  transform: $value;
+}
+
+@mixin headroom-apply-transition($transition: transform 400ms ease) {
+  &.headroom {
+    @include transition($transition);
+  }
+}
+
+@mixin headroom-on-scroll-up($value) {
+  &.headroom--pinned {
+    @include transform($value);
+  }
+}
+
+@mixin headroom-on-scroll-down($value) {
+  &.headroom--unpinned {
+    @include transform($value);
+  }
+}
+
+@mixin headroom-on-top($value) {
+  &.headroom--top {
+    @include transform($value);
+  }
+}

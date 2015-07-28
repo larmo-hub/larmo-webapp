@@ -1,0 +1,19 @@
+.source-scrutinizer .content {
+  border-top-width: $big-border-width;
+
+  &.passed {
+    border-top-color: $green;
+
+    .fa-cogs {
+      color: $green;
+    }
+  }
+
+  &.failed, &.error {
+    border-top-color: $red;
+
+    .fa-cogs {
+      color: $red;
+    }
+  }
+}

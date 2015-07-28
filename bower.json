@@ -1,0 +1,21 @@
+{
+  "name": "fp/larmo-webapp",
+  "version": "0.0.1",
+  "homepage": "https://github.com/adrianpietka/larmo",
+  "authors": [
+    "Adrian Piętka <apietka@future-processing.com>"
+  ],
+  "description": "Web application for open source project Larmo.",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "vendor"
+  ],
+  "dependencies": {
+    "angular": "~1.4.1",
+    "angular-sanitize": "~1.4.1",
+    "angular-route": "~1.4.1",
+    "headroom.js": "~0.7.0",
+    "moment": "~2.10.3"
+  }
+}

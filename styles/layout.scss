@@ -1,0 +1,47 @@
+body {
+  padding-top: $content-offset;
+  font-size: $base-font-size;
+
+  @include on-small-screen() {
+    padding-top: $content-offset-on-small-screen;
+  }
+}
+
+#header {
+  padding: $smaller-offset 0;
+
+  position: fixed;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  left: 0;
+  top: 0;
+
+  height: $header-height;
+  overflow: hidden;
+
+  background-color: $blue;
+
+  z-index: 10;
+
+  @include headroom-apply-transition();
+  @include headroom-on-scroll-up(translateY(-100%));
+  @include headroom-on-scroll-down(translateY(-100%));
+  @include headroom-on-top(translateY(0));
+}
+
+hr {
+  margin-top: $base-offset;
+  margin-bottom: $base-offset;
+}
+
+/* AngularJS */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+/* Icons of source */
+.fa-irc:before { content: "\f120"; }
+.fa-gitlab:before { content: "\f113"; }
+.fa-travis:before { content: "\f00c"; }

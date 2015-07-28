@@ -1,0 +1,10 @@
+<div class="content {{message.extras.status}}">
+    <i class="source fa fa-2x fa-cogs" title="Scrutinizer CI {{message.extras.status}}"></i>
+    <div class="metadata">
+        {{message.body}}
+        <a href="{{message.extras | scrutinizerUrlToInspection}}">{{message.extras.status}}</a>
+        <time class="metadata-date" moment-time-ago="message.timestamp"></time>
+    </div>
+    <div class="body" ng-bind-html="message.extras | scrutinizerSetDescription">
+    </div>
+</div>

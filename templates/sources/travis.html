@@ -1,0 +1,12 @@
+<div class="content {{message.extras.state}}">
+    <i class="source fa fa-2x {{message.extras.state | travisSetStatusIcon}}" title="Travis CI {{message.extras.state}}"></i>
+    <div class="metadata">
+        {{message.body}} {{message.extras.state}}
+        <a href="{{message.extras.build_url}}" target="_blank">#{{message.extras.number_build}}</a>
+        <time class="metadata-date" moment-time-ago="message.timestamp"></time>
+    </div>
+    <div class="body">
+        Build triggered by <span ng-bind-html="message.author | displayName"></span>
+        for <span ng-bind-html="message.extras | travisSetDescription"></span>
+    </div>
+</div>

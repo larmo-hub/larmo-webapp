@@ -1,0 +1,14 @@
+[
+  {
+    "id": "skype",
+    "label": "Skype"
+  },
+  {
+    "id": "irc",
+    "label": "IRC"
+  },
+  {
+    "id": "github",
+    "label": "GitHub"
+  }
+]

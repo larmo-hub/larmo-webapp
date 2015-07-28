@@ -1,0 +1,10 @@
+<form class="form-inline flex-container" id="filters-form">
+    <label for="filter-{{source.id}}" class="filter" ng-repeat="source in sources">
+        <input type="checkbox"
+               id="filter-{{source.id}}"
+               name="{{source.id}}"
+               ng-change="setupLatestMessages()"
+               ng-model="filters.sources[source.id]">
+        <i class="fa fa-{{source.id}}"></i>
+    </label>
+</form>

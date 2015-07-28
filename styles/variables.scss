@@ -1,0 +1,60 @@
+/* Base colors */
+$red   : #d4081a;
+$green : #2ca02c;
+$blue  : #008cba;
+
+$white : #ffffff;
+$black : #000000;
+
+$apple : #e5ff00;
+
+$lighter-grey : #d3d3d3;
+$light-grey   : #bbbbbb;
+$medium-grey  : #888888;
+$dark-grey    : #666666;
+$darker-grey  : #222222;
+
+/* Base font properties */
+$base-font-size    : 12pt;
+
+$big-font-size     : 1.2em;
+$small-font-size   : 0.8em;
+$smaller-font-size : 0.7em;
+
+$base-text-shadow-diffusion : 25pt;
+
+/* Filter container element distribution */
+$total-element-count : 6;
+
+$row-count-base            : 1;
+$row-count-on-small-screen : 2;
+
+$maximum-items-per-row : $total-element-count / $row-count-base;
+$maximum-items-per-row-on-small-screen : $total-element-count / $row-count-on-small-screen;
+
+$filter-element-width : 100% / $maximum-items-per-row;
+$filter-element-width-on-small-screen : 100% / $maximum-items-per-row-on-small-screen;
+
+/* Offset properties used for margin and padding */
+$base-offset    : 15pt;
+$small-offset   : 10pt;
+$smaller-offset : 5pt;
+$tiny-offset    : 2pt;
+
+$header-height            : 70pt;
+$filter-container-height  : 34pt;
+
+$filter-container-height-on-small-screen : $filter-container-height * $row-count-on-small-screen;
+
+$content-offset                 : $header-height + $filter-container-height + $base-offset;
+$content-offset-on-small-screen : $header-height + $filter-container-height-on-small-screen + $base-offset;
+
+/* Element border properties */
+$bigger-border-width  : 8pt;
+$big-border-width     : 3pt;
+$base-border-width    : 1pt;
+
+$base-border-radius : 5pt;
+
+/* Media query breakpoints */
+$break-small : 360pt;

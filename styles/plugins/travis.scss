@@ -1,0 +1,19 @@
+.source-travis .content {
+  border-top-width: $big-border-width;
+
+  &.passed, &.fixed {
+    border-top-color: $green;
+  }
+
+  &.broken, &.failed, &.errored {
+    border-top-color: $red;
+  }
+
+  .fa-check {
+    color: $green;
+  }
+
+  .fa-remove, .fa-exclamation, .fa-exclamation-circle, .fa-warning {
+    color: $red;
+  }
+}
