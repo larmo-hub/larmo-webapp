@@ -8,4 +8,12 @@
     <div ng-repeat="message in messages" class="{{'message source-' + message.source}}">
         <div ng-include=" 'templates/sources/' + message.source + '.html' "></div>
     </div>
+
+    <div class="spinner" ng-show="showLoadingSpinner">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+    </div>
 </div>

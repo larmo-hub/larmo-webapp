@@ -8,6 +8,7 @@
         $scope.setupLatestMessages = setupLatestMessages;
         $scope.getMoreMessages = setupLatestMessages;
         $scope.stopLoadingMore = false;
+        $scope.showLoadingSpinner = false;
 
         setupAvailableSources();
         setupLatestMessages();
@@ -23,6 +24,7 @@
 
             var filters = angular.copy($scope.filters);
             $scope.stopLoadingMore = true;
+            $scope.showLoadingSpinner = true;
 
             APIService.getLatestMessages(filters, limit, offset).then(function(response) {
                 response.data.forEach(function(el) {
@@ -34,6 +36,7 @@
                 }
 
                 offset += response.data.length;
+                $scope.showLoadingSpinner = false;
             });
         }
     }]);
