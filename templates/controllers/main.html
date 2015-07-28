@@ -4,7 +4,7 @@
     </div>
 </div>
 
-<div id="messages" class="container messages">
+<div id="messages" class="container messages" infinite-scroll="getMoreMessages()" infinite-scroll-disabled="stopLoadingMore">
     <div ng-repeat="message in messages" class="{{'message source-' + message.source}}">
         <div ng-include=" 'templates/sources/' + message.source + '.html' "></div>
     </div>

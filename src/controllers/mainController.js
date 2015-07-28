@@ -1,8 +1,13 @@
 (function() {
     app.controller("MainController", ["$scope", "APIService", function($scope, APIService) {
+        var offset = 0;
+        var limit = 10;
+
         $scope.messages = [];
         $scope.filters = {source: ""};
         $scope.setupLatestMessages = setupLatestMessages;
+        $scope.getMoreMessages = setupLatestMessages;
+        $scope.stopLoadingMore = false;
 
         setupAvailableSources();
         setupLatestMessages();
@@ -14,11 +19,21 @@
         }
 
         function setupLatestMessages() {
-            var filters = angular.copy($scope.filters);
-            var limit = 10;
+            if($scope.stopLoadingMore) return;
 
-            APIService.getLatestMessages(filters, limit).then(function(response) {
-                $scope.messages = response.data;
+            var filters = angular.copy($scope.filters);
+            $scope.stopLoadingMore = true;
+
+            APIService.getLatestMessages(filters, limit, offset).then(function(response) {
+                response.data.forEach(function(el) {
+                  $scope.messages.push(el);
+                });
+
+                if(response.data.length > 0) {
+                  $scope.stopLoadingMore = false;
+                }
+
+                offset += response.data.length;
             });
         }
     }]);

@@ -7,9 +7,10 @@
 
         return self;
 
-        function getLatestMessages(filters, limit) {
+        function getLatestMessages(filters, limit, offset) {
             var queryString = angular.extend(filters, {
                 limit: limit,
+                offset: offset ? offset : 0,
                 t: new Date().getTime()
             });
 
