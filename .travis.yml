@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "0.12"
+  - "0.11"
+  - "0.10"
+  - "iojs"
+  - "iojs-v1.0.4"
+
+before_install:
+  - gem install sass
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: EIe71RqmSyH2cF88C6FnvcgPYNrBiDmjQWLVgyCvK7P+V5MerKDgIXKbALsrCoWlDaCZ4HMxSXXrS1EDrha6nJkMryN40ysMm1KT0eJYbwyOeQQz92Wdgbydk7S1PzUelylRFdcSyBheO+tdxK0nb73YB8sqVsWrTIh9BTrM/YAeygrpVEsx1UbICBPALvAohHt6lQEyHS1wDMScF6+qXN6dNVfahT57Z8Na/01aLT0RWsYfFymL0Pn+K+NRic+WgxJ6IId8vnE9O7nP7WzpUSj/88KOavUgtAUc0RZ5fEcpjcTaUvtaNBzCKB5ZS6PZLHQHiili2yqqWeMbQY5o0/78Pif+FiR98FZGy4JyM/DaqDNvmDIF/K9WBw5MK5yTpmGpo37lvcRT0yi4F/J2UiUwYj5lbP7+sSe0YrZoGOhADwfAmhgJ46mwQ0QgXDm6Fn/FMlB71voB60NOzv07vKrvvp9fM8/X+Q1ETcBcjx+jlMyqRN3OVMgxi77WjTIYOLnjRgjBQmCpJI7Qlf2IaChxQyimcIcyDZHxVRhorcCow5j3PxFhYxL/NtqvaZF8Ccv4zl94E9k4IClGFtmW6q+vn2kZz1xxKantDuPacbuRQDwTjWB0jg+syMhkbFgmKUygSOfYSEXnUKX1RjZfwPUbMPb3OtoztZZJGrq0uKw=
+  app: larmo
+  on:
+    repo: mejt/larmo-webapp
