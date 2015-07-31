@@ -3,6 +3,7 @@
     <div class="metadata">
         {{message.body}}
         <a href="{{message.extras | scrutinizerUrlToInspection}}">{{message.extras.status}}</a>
+        (<span ng-bind-html='message.extras.repository | scrutinizerSetRepoInfo'></span>)
         <time class="metadata-date" moment-time-ago="message.timestamp"></time>
     </div>
     <div class="body" ng-bind-html="message.extras | scrutinizerSetDescription">

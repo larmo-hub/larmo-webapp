@@ -1,6 +1,7 @@
 (function(){
     app.filter('scrutinizerUrlToInspection', urlToInspection);
     app.filter('scrutinizerSetDescription', setDescription);
+    app.filter('scrutinizerSetRepoInfo', repoInfo);
 
     function urlToInspection() {
         return function(extras) {
@@ -52,6 +53,16 @@
         }
 
         return "<strong>" + count + "</strong> " + text.replace("{{suffix}}", suffix).replace("{{verb}}", verb);
+    }
+
+    function repoInfo() {
+        return function(repository) {
+            var repo = repository.user  + '/' + repository.name;
+            var repoUrl = '<a href="https://github.com/' + repo + '" target="_blank">' + repo + '</a>';
+            var branchUrl = '<a href="https://github.com/' + repo + '/tree/' + repository.branch + '" target="_blank">' + repository.branch + '</a>';
+
+            return branchUrl + ' at ' + repoUrl;
+        }
     }
 })();
 

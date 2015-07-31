@@ -4,6 +4,7 @@
         <span ng-bind-html='message.author | githubUser'></span>
         {{message.body}}
         <span ng-bind-html='message | githubAction'></span>
+        <span ng-bind-html='message.extras | githubRepositoryInformation'></span>
         <time class="metadata-date" moment-time-ago="message.timestamp"></time>
     </div>
     <div class="body formatted" ng-init="messageText = (message | githubExtendedMessage)" ng-show="messageText.length > 0" ng-bind-html='messageText'>

@@ -2,6 +2,7 @@
     app.filter('githubUser', GithubUser);
     app.filter('githubAction', GithubAction);
     app.filter('githubExtendedMessage', GithubExtendedMessage);
+    app.filter('githubRepositoryInformation', RepositoryInformation);
 
     function GithubUser() {
         return function(input) {
@@ -48,6 +49,28 @@
             }
 
             return message;
+        }
+    }
+
+    function RepositoryInformation() {
+        return function(extras) {
+            var repository, information = '';
+
+            if(extras.repository) {
+                repository = extras.repository;
+
+                if(!repository.full_name) {
+                    repository.full_name = repository.owner + '/' + repository.name;
+                }
+
+                if(extras.branch) {
+                    information += 'to <a href="https://github.com/' + repository.full_name + '/tree/' + extras.branch + '">' + extras.branch + '</a> ';
+                }
+
+                information += 'at <a href="https://github.com/' + repository.full_name + '">' + repository.full_name + '</a>';
+            }
+
+            return information;
         }
     }
 })();

@@ -1,6 +1,7 @@
 (function() {
     app.filter('travisSetStatusIcon', setStatusIcon);
     app.filter('travisSetDescription', setDescription);
+    app.filter('travisSetRepoInfo', repoInfo);
 
     function setStatusIcon() {
         return function(state) {
@@ -37,6 +38,14 @@
             }
 
             return type + ' ' + url.replace('{{number}}', number);
+        }
+    }
+
+    function repoInfo() {
+        return function(repository) {
+            var repo = repository.owner  + '/' + repository.name;
+
+            return '<a href="https://github.com/' + repo + '" target="_blank">' + repo + '</a>';
         }
     }
 })();
