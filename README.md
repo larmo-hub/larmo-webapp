@@ -1,6 +1,7 @@
 # Larmo - Web Application
 
 [![Build Status](https://travis-ci.org/mejt/larmo-webapp.svg)](https://travis-ci.org/mejt/larmo-webapp)
+[![Dependency Status](https://david-dm.org/mejt/larmo-webapp.png)](https://david-dm.org/mejt/larmo-webapp)
 
 Web application for presenting stored messages from *Larmo Hub*. Powered by node.js
 
