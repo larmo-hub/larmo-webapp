@@ -35,7 +35,7 @@
     "grunt-version-bump": "^1.0.5"
   },
   "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install; ./node_modules/grunt-cli/bin/grunt build",
+    "postinstall": "./node_modules/bower/bin/bower install",
     "start": "node index.js",
     "development-start": "bower install --allow-root --config.interactive=false; grunt"
   },
