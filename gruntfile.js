@@ -70,10 +70,7 @@ module.exports = function(grunt) {
             createReleaseForProduction: {
                 command: function(version) {
                     if(version === undefined) {
-                        var currentVersion = '<%= pkg.version %>'.split('.');
-                        currentVersion[2]++;
-
-                        version = currentVersion.join('.');
+                        version = '<%= pkg.version %>';
                     }
 
                     return 'git checkout -b release-' + version + ';' +
@@ -83,14 +80,24 @@ module.exports = function(grunt) {
                         'git checkout master; git branch -D release-' + version + '; ';
                 }
             }
+        },
+        version_bump: {
+            files: ['package.json']
         }
     });
 
-    //grunt.registerTask('default', ['build', 'concurrent:dev']);
-    grunt.registerTask('build', ['sass:dist', 'uglify', 'sass:dev', 'includeSource']);
-
+    grunt.registerTask('default', ['development']);
     grunt.registerTask('development', ['sass:dev', 'includeSource', 'concurrent:dev']);
-    grunt.registerTask('release', ['sass:dist', 'uglify', 'shell:createReleaseForProduction']);
+    grunt.registerTask('release', "Release new version", function(type) {
+        if(type === undefined) {
+            type = 'patch';
+        }
+
+        grunt.task.run('version_bump:' + type);
+        grunt.task.run("sass:dist");
+        grunt.task.run("uglify");
+        grunt.task.run("shell:createReleaseForProduction");
+    });
 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -99,4 +106,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-version-bump');
 };

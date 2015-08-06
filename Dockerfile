@@ -17,4 +17,4 @@ RUN npm install -g grunt-cli
 
 EXPOSE 8080
 
-CMD [ "bash","-c", "npm install --ignore-scripts; npm run-script dockerInstall" ]
+CMD [ "bash","-c", "npm install --ignore-scripts; npm run-script development-start" ]
