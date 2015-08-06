@@ -15,4 +15,5 @@ deploy:
   app: larmo
   on:
     repo: mejt/larmo-webapp
+    tag: true
     node: '0.10'
