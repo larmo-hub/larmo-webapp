@@ -6,6 +6,7 @@ RUN apt-get update && \
         nodejs-legacy \
         npm \
         ruby \
+        git \
      && apt-get purge -y --auto-remove \
      && rm -rf /var/lib/apt/lists/*
 

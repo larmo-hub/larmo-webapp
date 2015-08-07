@@ -1,13 +1,15 @@
 module.exports = function(grunt) {
     var jsFiles = [
-        'src/lang/*.js',
-        'src/filters/*.js',
-        'src/controllers/*.js',
-        'src/services/*.js'
+        'assets/js/app.js',
+        'assets/js/config.js',
+        'assets/js/lang/*.js',
+        'assets/js/filters/*.js',
+        'assets/js/controllers/*.js',
+        'assets/js/services/*.js'
     ];
 
     var sassFiles = [
-        'styles/main.scss'
+        'assets/styles/main.scss'
     ];
 
     grunt.initConfig({
@@ -15,7 +17,7 @@ module.exports = function(grunt) {
         'uglify': {
             'js': {
                 'src': jsFiles,
-                'dest': 'public/js/application.min.js'
+                'dest': 'build/application.min.js'
             }
         },
         'sass': {
@@ -24,7 +26,7 @@ module.exports = function(grunt) {
                     'style': 'compressed'
                 },
                 files: {
-                    'public/css/style.min.css': sassFiles
+                    'build/style.min.css': sassFiles
                 }
             },
             dev: {
@@ -32,21 +34,28 @@ module.exports = function(grunt) {
                     'style': 'expanded'
                 },
                 files: {
-                    'public/css/style.css': sassFiles
+                    'build/style.css': sassFiles
                 }
             }
         },
         'includeSource': {
-            myTarget: {
+            dev: {
                 files: {
-                    'views/scripts_include/dev.html': 'views/dev_scripts_include.tpl.html'
+                    'build/scripts.html': 'views/dev_scripts.tpl.html',
+                    'build/external_scripts.html': 'views/external_scripts.tpl.html'
+                }
+            },
+            production: {
+                files: {
+                    'build/scripts.html': 'views/production_scripts.tpl.html',
+                    'build/external_scripts.html': 'views/external_scripts.tpl.html'
                 }
             }
         },
         'watch': {
             'js': {
                 'files': jsFiles,
-                'tasks': ['includeSource']
+                'tasks': ['includeSource:dev']
             },
             'css': {
                 'files': ['styles/*.scss', 'styles/*/*.scss'],
@@ -67,15 +76,18 @@ module.exports = function(grunt) {
             }
         },
         shell: {
+            commitVersionBump: {
+                command: function(version) {
+                    return 'git add package.json; git commit -m \'Updated version to ' + version + ' in package.json\'';
+                }
+            },
             createReleaseForProduction: {
                 command: function(version) {
-                    if(version === undefined) {
-                        version = '<%= pkg.version %>';
-                    }
+                    grunt.task.run("production");
 
                     return 'git checkout -b release-' + version + ';' +
-                        'git add -f public/css/style.min.css public/js/application.min.js;' +
-                        'git commit -am \'Saved for release\'; ' +
+                        'git add -f build/*;' +
+                        'git commit -am \'Added compiled assets for production version \'' + version + '; ' +
                         'git tag -a ' + version + ' -m \'Release ' + version + '\'; ' +
                         'git checkout master; git branch -D release-' + version + '; ';
                 }
@@ -87,16 +99,28 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', ['development']);
-    grunt.registerTask('development', ['sass:dev', 'includeSource', 'concurrent:dev']);
+    grunt.registerTask('build', ['sass:dev', 'includeSource:dev']);
+    grunt.registerTask('development', ['build', 'concurrent:dev']);
+    grunt.registerTask('production', ['sass:dist', 'uglify', 'includeSource:production']);
     grunt.registerTask('release', "Release new version", function(type) {
+        var pkg, version;
+
         if(type === undefined) {
             type = 'patch';
         }
 
+        // Increase version in package.json
         grunt.task.run('version_bump:' + type);
-        grunt.task.run("sass:dist");
-        grunt.task.run("uglify");
-        grunt.task.run("shell:createReleaseForProduction");
+
+        // Get new version from package.json
+        pkg = grunt.file.readJSON('package.json');
+        version = pkg.version;
+
+        // Commit new package version
+        grunt.task.run("shell:commitVersionBump");
+
+        // Create new tag with
+        grunt.task.run("shell:createReleaseForProduction:version");
     });
 
     grunt.loadNpmTasks('grunt-contrib-watch');

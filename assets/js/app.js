@@ -5,7 +5,7 @@ var app = angular.module("LarmoApp", ["ngRoute", "ngSanitize", "headroom", "infi
 (function() {
     app.config(["$routeProvider", function($routeProvider) {
         $routeProvider.when("/", {
-            templateUrl: "templates/controllers/main.html",
+            templateUrl: "assets/templates/controllers/main.html",
             controller: "MainController"
         });
 

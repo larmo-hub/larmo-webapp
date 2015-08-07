@@ -15,23 +15,14 @@
 </head>
 <body>
     <div ng-controller="AppController">
-        <div ng-include="'templates/layout/header.html'"></div>
+        <div ng-include="'assets/templates/layout/header.html'"></div>
         <div ng-view class="content-view"></div>
     </div>
 
     <script>
         var SITE_CONFIG = JSON.parse('<%- config %>');
     </script>
-    <script src="vendor/angular/angular.min.js"></script>
-    <script src="vendor/angular-route/angular-route.min.js"></script>
-    <script src="vendor/angular-sanitize/angular-sanitize.min.js"></script>
-    <script src="vendor/jQuery/dist/jquery.min.js"></script>
-    <script src="vendor/headroom.js/dist/headroom.min.js"></script>
-    <script src="vendor/headroom.js/dist/angular.headroom.min.js"></script>
-    <script src="vendor/moment/min/moment.min.js"></script>
-    <script src="vendor/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
-    <script src="src/app.js"></script>
-    <script src="src/config.js"></script>
-    <%- include('scripts_include/' + mode_env + '.html') %>
+    <%- include('../build/external_scripts.html') %>
+    <%- include('../build/scripts.html') %>
 </body>
 </html>
