@@ -76,20 +76,23 @@ module.exports = function(grunt) {
             }
         },
         shell: {
+            checkGitVersion: {
+                command: 'git --version'
+            },
             commitVersionBump: {
                 command: function(version) {
-                    return 'git add package.json; git commit -m \'Updated version to ' + version + ' in package.json\'';
+                    return 'git add package.json && git commit -m "Updated version to ' + version + ' in package.json"';
                 }
             },
             createReleaseForProduction: {
                 command: function(version) {
                     grunt.task.run("production");
 
-                    return 'git checkout -b release-' + version + ';' +
-                        'git add -f build/*;' +
-                        'git commit -am \'Added compiled assets for production version \'' + version + '; ' +
-                        'git tag -a ' + version + ' -m \'Release ' + version + '\'; ' +
-                        'git checkout master; git branch -D release-' + version + '; ';
+                    return 'git checkout -b release-' + version + ' && ' +
+                        'git add -f build/* && ' +
+                        'git commit -am "Added compiled assets for production version ' + version + '" && ' +
+                        'git tag -a ' + version + ' -m "Release ' + version + '" && ' +
+                        'git checkout master; git branch -D release-' + version;
                 }
             }
         },
@@ -109,6 +112,9 @@ module.exports = function(grunt) {
             type = 'patch';
         }
 
+        // If git isn't installed then do nothing
+        grunt.task.run('shell:checkGitVersion');
+
         // Increase version in package.json
         grunt.task.run('version_bump:' + type);
 
@@ -117,10 +123,10 @@ module.exports = function(grunt) {
         version = pkg.version;
 
         // Commit new package version
-        grunt.task.run("shell:commitVersionBump");
+        grunt.task.run("shell:commitVersionBump:" + version);
 
         // Create new tag with
-        grunt.task.run("shell:createReleaseForProduction:version");
+        grunt.task.run("shell:createReleaseForProduction:" + version);
     });
 
     grunt.loadNpmTasks('grunt-contrib-watch');
