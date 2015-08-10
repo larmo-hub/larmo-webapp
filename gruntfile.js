@@ -92,7 +92,7 @@ module.exports = function(grunt) {
                         'git add -f build/* && ' +
                         'git commit -am "Added compiled assets for production version ' + version + '" && ' +
                         'git tag -a ' + version + ' -m "Release ' + version + '" && ' +
-                        'git checkout master; git branch -D release-' + version;
+                        'git checkout master && git branch -D release-' + version;
                 }
             }
         },
