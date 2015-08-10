@@ -1,4 +1,5 @@
 module.exports = function(grunt) {
+    var version;
     var jsFiles = [
         'assets/js/app.js',
         'assets/js/config.js',
@@ -76,25 +77,32 @@ module.exports = function(grunt) {
             }
         },
         shell: {
-            commitVersionBump: {
-                command: function(version) {
-                    return 'git add package.json; git commit -m \'Updated version to ' + version + ' in package.json\'';
-                }
+            checkGitVersion: {
+                command: 'git --version'
             },
             createReleaseForProduction: {
                 command: function(version) {
-                    grunt.task.run("production");
+                    var commands = [
+                        'git add package.json',
+                        'git commit -m "Updated version to ' + version + ' in package.json"',
+                        'git checkout -b release-' + version,
+                        'git add -f build/*',
+                        'git commit -am "Added compiled assets for production version ' + version,
+                        'git tag -a ' + version + ' -m "Release ' + version,
+                        'git checkout master && git branch -D release-' + version
+                    ];
 
-                    return 'git checkout -b release-' + version + ';' +
-                        'git add -f build/*;' +
-                        'git commit -am \'Added compiled assets for production version \'' + version + '; ' +
-                        'git tag -a ' + version + ' -m \'Release ' + version + '\'; ' +
-                        'git checkout master; git branch -D release-' + version + '; ';
+                    grunt.task.run("production");
+                    return commands.join(' && ');
                 }
             }
         },
         version_bump: {
-            files: ['package.json']
+            files: ['package.json'],
+            callback: function(version) {
+                // Apply changes and create new tag with
+                grunt.task.run("shell:createReleaseForProduction:" + version);
+            }
         }
     });
 
@@ -103,24 +111,15 @@ module.exports = function(grunt) {
     grunt.registerTask('development', ['build', 'concurrent:dev']);
     grunt.registerTask('production', ['sass:dist', 'uglify', 'includeSource:production']);
     grunt.registerTask('release', "Release new version", function(type) {
-        var pkg, version;
-
-        if(type === undefined) {
+        if(!type) {
             type = 'patch';
         }
 
+        // If git isn't installed then do nothing
+        grunt.task.run('shell:checkGitVersion');
+
         // Increase version in package.json
         grunt.task.run('version_bump:' + type);
-
-        // Get new version from package.json
-        pkg = grunt.file.readJSON('package.json');
-        version = pkg.version;
-
-        // Commit new package version
-        grunt.task.run("shell:commitVersionBump");
-
-        // Create new tag with
-        grunt.task.run("shell:createReleaseForProduction:version");
     });
 
     grunt.loadNpmTasks('grunt-contrib-watch');
