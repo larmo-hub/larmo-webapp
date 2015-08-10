@@ -80,19 +80,25 @@ module.exports = function(grunt) {
             checkGitVersion: {
                 command: 'git --version'
             },
+            createCommitForPackage: {
+                command: function(version) {
+                    return [
+                        'git add package.json',
+                        'git commit -m "Updated version to ' + version + ' in package.json"'
+                    ].join(' && ');
+                }
+            },
             createReleaseForProduction: {
                 command: function(version) {
                     var commands = [
-                        'git add package.json',
-                        'git commit -m "Updated version to ' + version + ' in package.json"',
                         'git checkout -b release-' + version,
                         'git add -f build/*',
-                        'git commit -am "Added compiled assets for production version ' + version,
-                        'git tag -a ' + version + ' -m "Release ' + version,
-                        'git checkout master && git branch -D release-' + version
+                        'git commit -am "Added compiled assets for production version ' + version + '"',
+                        'git tag -a ' + version + ' -m "Release ' + version + '"',
+                        'git checkout master',
+                        'git branch -D release-' + version
                     ];
 
-                    grunt.task.run("production");
                     return commands.join(' && ');
                 }
             }
@@ -100,6 +106,9 @@ module.exports = function(grunt) {
         version_bump: {
             files: ['package.json'],
             callback: function(version) {
+                // Commit changed version in package.json
+                grunt.task.run("shell:createCommitForPackage:" + version);
+
                 // Apply changes and create new tag with
                 grunt.task.run("shell:createReleaseForProduction:" + version);
             }
@@ -114,6 +123,9 @@ module.exports = function(grunt) {
         if(!type) {
             type = 'patch';
         }
+
+        // Compile assets
+        grunt.task.run("production");
 
         // If git isn't installed then do nothing
         grunt.task.run('shell:checkGitVersion');
