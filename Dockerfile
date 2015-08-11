@@ -16,6 +16,12 @@ RUN gem install sass
 RUN npm install -g bower
 RUN npm install -g grunt-cli
 
+ADD ./package.json /data/larmo-webapp/package.json
+RUN npm install --ignore-scripts
+
+ADD ./bower.json /data/larmo-webapp/bower.json
+ADD ./.bowerrc /data/larmo-webapp/.bowerrc
+
 EXPOSE 8080
 
-CMD [ "bash","-c", "npm install --ignore-scripts; npm run-script development-start" ]
+CMD [ "bash","-c", "npm run-script development-start" ]

@@ -1,0 +1,6 @@
+larmo-webapp:
+  build: .
+  volumes:
+    - "./:/data/larmo-webapp"
+  ports:
+    - "5000:8080"
