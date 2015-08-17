@@ -11,17 +11,65 @@ Web application for presenting stored messages from *Larmo Hub*. Powered by node
 
 ## Installation guide
 
+You can start application in two ways (thanks docker and traditionally).
+
+### DOCKER
+#### docker-compose
+Come on to console, and type ```docker-compose up``` 
+- After all processes your webapp will work on address **http://localhost:5000**
+
+**TIP** If you want to run container in background then run command *docker compose up* with *-d* flag: ```docker-compose up -d```
+
+Setup your larmo-hub address in file *docker-compose.yml* as **API_URL** environment variable (default is localhost:5100):
+```yml
+environment:
+    - API_URL=http://0.0.0.0:5100
+```
+
+#### docker
+* Linux
+    ```bash
+    sudo docker build -t webapp .
+    sudo docker run -p 5000:8080 -i -d -t -v $(pwd):/data/larmo-webapp webapp
+    ```
+
+* Windows
+
+    Prepare host for windows:
+    ```bash
+    boot2docker init
+    boot2docker up
+    eval "$(boot2docker shellinit)"
+    ```
+    
+    Get docker host ip (typically 192.168.59.103).
+    ```bash
+    boot2docker ip
+    ```
+    
+    Run docker commands:
+    ```bash
+    sudo docker build -t webapp .
+    sudo docker run -p 5000:8080 -i -d -t -v YOUR_CURRENT_PROJECT_DIRECTORY:/data/larmo-webapp webapp
+    ```
+### Normal environment to run
+
 #### Requires for development
 - *node.js*
 - *npm*
-- *ruby* with *sass gem*
+- for development:
+    - *ruby* with *sass gem*
+    - bower
+    - grunt
 
-### 1. Install dependencies by npm
-Run in your console command ```npm install``` and wait to install all required dependencies.
+#### 1. Install dependencies by npm
+Run in your console command ```npm install --ignore-scripts``` and wait to install all required dependencies.
 
-### 2. Run application
-Starting application is very easy, if you don't want use any settings you can run command: ```npm start``` or ```node index.js``` 
-and go to site *localhost:8080* in your browser
+#### 2. Run application
+Starting application is very easy, if you don't want use any settings, and start development mode then run command 
+```npm development-start``` and go to site *localhost:8080* in your browser.
+
+If you want to start production mode, then run command ```npm postinstall``` and ```npm start```.
 
 If you want run application with your settings then you'll set environment variables before.
 
@@ -31,22 +79,11 @@ Available environment variables:
 - ```MODE_ENV``` - set mode *production* or *dev* (default dev)
 - ```API_URL``` - set Larmo Hub API URL (default is localhost:port)
 
-Easy way to run application with environment variables:
-
-```PORT=8000 API_URL=http://your-hub-site.com node index.js```
-
-#### Development
-If you want to do something then you have to run grunt watcher for auto-compiling all files. Run command ```grunt```
-
 ## Deployment
 Application is ready to deploy to Heroku. 
 
-- First step is add heroku build pack for support multiple platforms.
-```heroku config:add BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git```
-- Init git repository in this directory if isn't exists ```git init```
-- Add all files to and commit it
 - Create heroku app ```heroku create``` or add exists app ```heroku git:remote -a APP_NAME```
-- Push all changes do heroku ```git push heroku master --force```
+- Push all changes to heroku ```git push heroku master --force```
 
 ## Authors
 

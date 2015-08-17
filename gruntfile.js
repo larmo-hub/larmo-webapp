@@ -1,5 +1,4 @@
 module.exports = function(grunt) {
-    var version;
     var jsFiles = [
         'assets/js/app.js',
         'assets/js/config.js',
@@ -61,6 +60,10 @@ module.exports = function(grunt) {
             'css': {
                 'files': ['styles/*.scss', 'styles/*/*.scss'],
                 'tasks': ['sass:dev']
+            },
+            templates: {
+                files: ['views/*.tpl.html'],
+                tasks: ['includeSource:dev']
             }
         },
         'nodemon': {
@@ -70,7 +73,7 @@ module.exports = function(grunt) {
         },
         concurrent: {
             dev: {
-                tasks   : ['nodemon', 'watch'],
+                tasks   : ['nodemon', 'watch:js', 'watch:css', 'watch:templates'],
                 options : {
                     logConcurrentOutput: true
                 }
@@ -115,11 +118,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('default', ['development']);
-    grunt.registerTask('build', ['sass:dev', 'includeSource:dev']);
-    grunt.registerTask('development', ['build', 'concurrent:dev']);
-    grunt.registerTask('production', ['sass:dist', 'uglify', 'includeSource:production']);
-    grunt.registerTask('release', "Release new version", function(type) {
+    function createNewRelease(type) {
         if(!type) {
             type = 'patch';
         }
@@ -132,7 +131,13 @@ module.exports = function(grunt) {
 
         // Increase version in package.json
         grunt.task.run('version_bump:' + type);
-    });
+    }
+
+    grunt.registerTask('default', ['development']);
+    grunt.registerTask('build', ['sass:dev', 'includeSource:dev']);
+    grunt.registerTask('development', ['build', 'concurrent:dev']);
+    grunt.registerTask('production', ['sass:dist', 'uglify', 'includeSource:production']);
+    grunt.registerTask('release', "Release new version", createNewRelease);
 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
