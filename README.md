@@ -52,6 +52,7 @@ environment:
     sudo docker build -t webapp .
     sudo docker run -p 5000:8080 -i -d -t -v YOUR_CURRENT_PROJECT_DIRECTORY:/data/larmo-webapp webapp
     ```
+    
 ### Normal environment to run
 
 #### Requires for development
