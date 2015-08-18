@@ -5,4 +5,4 @@ webapp:
   ports:
     - "5000:8080"
   environment:
-    - API_URL=http://0.0.0.0:5100
+    - API_URL=http://larmo-hub.herokuapp.com
