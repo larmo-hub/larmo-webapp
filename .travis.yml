@@ -28,3 +28,6 @@ deploy:
       repo: mejt/larmo-webapp
       node: '0.12'
     skip_cleanup: true
+
+notifications:
+  webhooks: http://morning-escarpment-1297.herokuapp.com/travis
