@@ -1,6 +1,6 @@
 {
   "name": "larmo-webapp",
-  "version": "0.0.4-RELEASE.1",
+  "version": "0.0.4-RELEASE.2",
   "description": "Web application for open source project Larmo.",
   "main": "index.js",
   "engines": {
