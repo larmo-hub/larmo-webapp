@@ -23,13 +23,28 @@
     function GithubAction() {
         return function(input) {
             var action = '';
+            var mock = '<a href="' + input.extras.url + '" target="new">#{{URL_DESCRIPTION}}</a>';
 
-            if(input.type == 'github.commit') {
-                action = '<a href="' + input.extras.url + '" target="new">' + input.extras.id.substr(0, 10) + '</a>';
-            } else if(input.type == 'github.issue_comment_created') {
-                action = '<a href="' + input.extras.url + '" target="new">#' + input.extras.issue_number + '</a>';
-            } else if(input.type.indexOf('github.pull_request') || input.type.indexOf('github.issue')) {
-                action = '<a href="' + input.extras.url + '" target="new">#' + input.extras.number + '</a>';
+            if(input.type.indexOf('github.pull_request') || input.type.indexOf('github.issue')) {
+                action = mock.replace('{{URL_DESCRIPTION}}', input.extras.number);
+            }
+
+            switch(input.type) {
+                case 'github.commit':
+                    action = mock.replace('#{{URL_DESCRIPTION}}', input.extras.id.substr(0, 10));
+                    break;
+                case 'github.issue_comment_created':
+                    action = mock.replace('{{URL_DESCRIPTION}}', input.extras.issue_number);
+                    break;
+                case 'github.pull_request_review_comment_created':
+                    action = mock.replace('{{URL_DESCRIPTION}}', input.extras.pull_request_number);
+                    break;
+                case 'github.create_branch':
+                    action = '<a href="http://github.com/' +
+                        input.extras.repository.full_name + '/tree/' +
+                        input.extras.ref + '">' +
+                        input.extras.ref + '</a>';
+                    break;
             }
 
             return action;
@@ -39,13 +54,12 @@
     function GithubExtendedMessage() {
         return function(input) {
             var message = '';
+            var actions = ['github.commit', 'github.issue_comment_created', 'github.pull_request_review_comment_created'];
 
-            if(input.type == 'github.commit') {
+            if(actions.indexOf(input.type) > -1) {
                 message = input.extras.body;
             } else if(input.type == 'github.issue_opened') {
                 message = '<strong>' + input.extras.title + '</strong><br/>' + input.extras.body;
-            } else if(input.type == 'github.issue_comment_created') {
-                message = input.extras.body;
             }
 
             return message;
