@@ -45,6 +45,10 @@
                         input.extras.ref + '">' +
                         input.extras.ref + '</a>';
                     break;
+                case 'github.create_tag':
+                    action = '<a href="https://github.com/' +
+                        input.extras.repository.full_name + '/releases/tag/' +
+                        input.extras.ref + '">' + input.extras.ref + '</a>';
             }
 
             return action;
