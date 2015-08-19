@@ -9,6 +9,9 @@ RUN apt-get update && \
         git \
      && apt-get purge -y --auto-remove \
      && rm -rf /var/lib/apt/lists/*
+     
+ENV API_URL http://0.0.0.0:5100
+ENV MODE_ENV dev
 
 WORKDIR /data/larmo-webapp
 
@@ -16,11 +19,10 @@ RUN gem install sass
 RUN npm install -g bower
 RUN npm install -g grunt-cli
 
-ADD ./package.json /data/larmo-webapp/package.json
-RUN npm install --ignore-scripts
+ADD . /data/larmo-webapp
 
-ADD ./bower.json /data/larmo-webapp/bower.json
-ADD ./.bowerrc /data/larmo-webapp/.bowerrc
+RUN npm install --ignore-scripts
+RUN bower install --allow-root --config.interactive=false;
 
 EXPOSE 8080
 
