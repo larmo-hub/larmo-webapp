@@ -37,7 +37,7 @@
   "scripts": {
     "postinstall": "./node_modules/bower/bin/bower install",
     "start": "node index.js",
-    "development-start": "bower install --allow-root --config.interactive=false; grunt"
+    "development-start": "grunt"
   },
   "author": "Mateusz Ksiazek",
   "license": "MIT"
