@@ -17,7 +17,7 @@
     "angular-route": "~1.4.1",
     "headroom.js": "~0.7.0",
     "moment": "~2.10.3",
-    "ngInfiniteScroll": "~1.2.1",
+    "ngInfiniteScroll": "~1.2.0",
     "jQuery": "~2.1.4"
   }
 }

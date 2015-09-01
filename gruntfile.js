@@ -66,20 +66,18 @@ module.exports = function(grunt) {
                 tasks: ['includeSource:dev']
             }
         },
-        'nodemon': {
-            dev: {
-                script: 'index.js'
-            }
-        },
         concurrent: {
             dev: {
-                tasks   : ['nodemon', 'watch:js', 'watch:css', 'watch:templates'],
+                tasks   : ['shell:startServer', 'watch'],
                 options : {
                     logConcurrentOutput: true
                 }
             }
         },
         shell: {
+            startServer: {
+                command: 'node index.js'
+            },
             checkGitVersion: {
                 command: 'git --version'
             },
@@ -143,7 +141,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-include-source');
-    grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-version-bump');
