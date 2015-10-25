@@ -31,7 +31,7 @@
     "grunt-nodemon": "^0.4.0",
     "grunt-release": "^0.13.0",
     "grunt-shell": "^1.1.2",
-    "grunt-version-bump": "https://github.com/mejt/grunt-version-bump/tarball/master",
+    "grunt-version-bump": "*",
     "nodemon": "^1.4.0"
   },
   "scripts": {
