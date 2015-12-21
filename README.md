@@ -1,8 +1,8 @@
 # Larmo - Web Application
 
-[![Build Status](https://travis-ci.org/mejt/larmo-webapp.svg)](https://travis-ci.org/mejt/larmo-webapp)
-[![Dependency Status](https://david-dm.org/mejt/larmo-webapp.png)](https://david-dm.org/mejt/larmo-webapp)
-[![bitHound Score](https://www.bithound.io/github/mejt/larmo-webapp/badges/score.svg)](https://www.bithound.io/github/mejt/larmo-webapp)
+[![Build Status](https://travis-ci.org/larmo-hub/larmo-webapp.svg)](https://travis-ci.org/larmo-hub/larmo-webapp)
+[![Dependency Status](https://david-dm.org/larmo-hub/larmo-webapp.svg)](https://david-dm.org/larmo-hub/larmo-webapp)
+[![bitHound Score](https://www.bithound.io/github/larmo-hub/larmo-webapp/badges/score.svg)](https://www.bithound.io/github/larmo-hub/larmo-webapp)
 
 Web application for presenting stored messages from *Larmo Hub*. Powered by node.js
 
