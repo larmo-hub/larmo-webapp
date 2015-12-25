@@ -3,12 +3,17 @@
 [![Build Status](https://travis-ci.org/larmo-hub/larmo-webapp.svg)](https://travis-ci.org/larmo-hub/larmo-webapp)
 [![Dependency Status](https://david-dm.org/larmo-hub/larmo-webapp.svg)](https://david-dm.org/larmo-hub/larmo-webapp)
 [![bitHound Score](https://www.bithound.io/github/larmo-hub/larmo-webapp/badges/score.svg)](https://www.bithound.io/github/larmo-hub/larmo-webapp)
+[![Docs](https://readthedocs.org/projects/larmo/badge/?version=latest)](http://docs.larmo.org/)
 
 Web application for presenting stored messages from *Larmo Hub*. Powered by node.js
 
 ## Supported features
 
 * displaying latest messages
+
+## Documentation
+
+Documentation for projects hosted on [readthedocs.org](https://readthedocs.org) is available on the [docs.larmo.org](http://docs.larmo.org).
 
 ## Installation guide
 
@@ -19,8 +24,8 @@ You can start application in two ways (thanks docker and traditionally).
 * Linux
 
     ```bash
-    $: sudo docker build -t webapp .
-    $: sudo docker run -p 5000:8080 -i -d -t -v $(pwd):/data/larmo-webapp webapp
+    $: sudo docker build -t larmo-webapp .
+    $: sudo docker run -p 5000:8080 -i -d -t -v $(pwd):/data/larmo-webapp larmo-webapp
     ```
 
     Access to *Larmo Web Application*:
