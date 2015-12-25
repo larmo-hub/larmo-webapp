@@ -23,8 +23,10 @@ You can start application in two ways (thanks docker and traditionally).
     $: sudo docker run -p 5000:8080 -i -d -t -v $(pwd):/data/larmo-webapp webapp
     ```
 
-    Your webapp will work on address: **http://localhost:5000**
+    Access to *Larmo Web Application*:
 
+    - [http://192.168.99.100:5000](http://192.168.99.100:5000)
+    
 * Windows
 
     Prepare host for Windows:
@@ -44,11 +46,13 @@ You can start application in two ways (thanks docker and traditionally).
     Run docker commands:
 
     ```bash
-    $: docker build -t webapp .
-    $: docker run -p 5000:8080 -i -d -t -v webapp
+    $: docker build -t larmo-webapp .
+    $: docker run -p 5000:8080 -i -d -t- v .:/data/larmo-webapp larmo-webapp
     ```
 
-    Your webapp will work on address: **http://192.168.99.100:5000**
+    Access to *Larmo Web Application*:
+
+    - [http://192.168.99.100:5000](http://192.168.99.100:5000)
 
 ### Normal environment to run
 
